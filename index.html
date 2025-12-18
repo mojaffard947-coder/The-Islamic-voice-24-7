@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Islamic Voice 24 – Qur’an with Tafsir</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1580414057403-c5f451f30e1b");
+  background-size:cover;
+  background-attachment:fixed;
+  background-position:center;
+  color:#fff;
+}
+
+header{
+  background:rgba(10,92,54,0.85);
+  padding:15px;
+  text-align:center;
+}
+
+section{
+  background:rgba(255,255,255,0.95);
+  color:#000;
+  margin:15px;
+  padding:15px;
+  border-radius:10px;
+}
+
+select{
+  width:95%;
+  padding:10px;
+  margin:10px 0;
+}
+
+.ar{font-size:22px;direction:rtl}
+.en{color:#222}
+.bn{color:#004}
+.tafsir{
+  background:#f5f5f5;
+  padding:10px;
+  border-left:4px solid #0a5c36;
+  margin-bottom:15px;
+  font-size:14px;
+}
+hr{opacity:.3}
+
+footer{
+  background:rgba(0,0,0,0.8);
+  text-align:center;
+  padding:10px;
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>The Islamic Voice 24</h2>
+<p>Complete Qur’an with Tafsir</p>
+</header>
+
+<section>
+<h3>📖 Al-Qur’an</h3>
+
+<select id="surahList" onchange="loadSurah()">
+  <option value="">সূরা নির্বাচন করুন</option>
+</select>
+
+<div id="ayahs">লোড হচ্ছে...</div>
+</section>
+
+<footer>
+<p>© 2025 The Islamic Voice 24</p>
+</footer>
+
+<script>
+// -------- Number Converters --------
+function toArabicNum(n){
+  const arNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  return n.toString().split('').map(d=>arNums[d]).join('');
+}
+
+function toBanglaNum(n){
+  const bnNums = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  return n.toString().split('').map(d=>bnNums[d]).join('');
+}
+
+// -------- LOAD SURAH LIST --------
+fetch("https://api.alquran.cloud/v1/surah")
+.then(r=>r.json())
+.then(d=>{
+  let s=document.getElementById("surahList");
+  d.data.forEach(x=>{
+    let o=document.createElement("option");
+    o.value=x.number;
+    o.text=x.number+". "+x.englishName+" ("+x.name+")";
+    s.appendChild(o);
+  });
+  s.value = 1; // Al-Fatiha
+  loadSurah();
+});
+
+// -------- LOAD SURAH + TAFSIR --------
+function loadSurah(){
+  let n=document.getElementById("surahList").value;
+  if(!n) return;
+
+  document.getElementById("ayahs").innerHTML="লোড হচ্ছে...";
+
+  fetch(
+    "https://api.alquran.cloud/v1/surah/"+n+
+    "/editions/quran-uthmani,en.asad,bn.bengali,en.jalalayn"
+  )
+  .then(r=>r.json())
+  .then(d=>{
+    let ar=d.data[0].ayahs;
+    let en=d.data[1].ayahs;
+    let bn=d.data[2].ayahs;
+    let taf=d.data[3].ayahs;
+
+    let h="";
+    for(let i=0;i<ar.length;i++){
+      let ayahNo = i+1;
+      h+=`
+      <p class="ar">
+        ${ar[i].text} ﴿${toArabicNum(ayahNo)}﴾
+      </p>
+
+      <p class="en">
+        (${ayahNo}) ${en[i].text}
+      </p>
+
+      <p class="bn">
+        (${toBanglaNum(ayahNo)}) ${bn[i].text}
+      </p>
+
+      <div class="tafsir">
+        <b>Tafsir (Jalalayn):</b><br>
+        ${taf[i].text}
+      </div>
+      <hr>`;
+    }
+    document.getElementById("ayahs").innerHTML=h;
+  });
+}
+</script>
+
+</body>
+</html>
