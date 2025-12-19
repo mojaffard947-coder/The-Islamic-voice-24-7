@@ -1,60 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>The Islamic Voice 24 – Qur’an with Tafsir</title>
+<title>The Islamic Voice 24 – Quran</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("https://images.unsplash.com/photo-1580414057403-c5f451f30e1b");
+  font-family: Arial, sans-serif;
+  background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+  url("https://images.unsplash.com/photo-1542816417-0983c9c9ad53");
   background-size:cover;
   background-attachment:fixed;
-  background-position:center;
   color:#fff;
 }
 
 header{
-  background:rgba(10,92,54,0.85);
+  background:#0a5c36;
   padding:15px;
   text-align:center;
 }
 
-section{
-  background:rgba(255,255,255,0.95);
-  color:#000;
-  margin:15px;
-  padding:15px;
+.container{
+  padding:20px;
+}
+
+.surah{
+  background:rgba(0,0,0,.75);
+  padding:20px;
+  margin-bottom:25px;
   border-radius:10px;
 }
 
-select{
-  width:95%;
-  padding:10px;
-  margin:10px 0;
+.surah h2{
+  color:#1abc9c;
+  text-align:center;
 }
 
-.ar{font-size:22px;direction:rtl}
-.en{color:#222}
-.bn{color:#004}
-.tafsir{
-  background:#f5f5f5;
-  padding:10px;
-  border-left:4px solid #0a5c36;
-  margin-bottom:15px;
+.info{
+  text-align:center;
   font-size:14px;
+  color:#f1c40f;
+  margin-bottom:15px;
 }
-hr{opacity:.3}
+
+.bismillah{
+  text-align:center;
+  font-size:28px;
+  margin:15px 0;
+}
+
+.ar{
+  font-size:26px;
+  direction:rtl;
+  text-align:right;
+}
+
+.en{
+  color:#f1c40f;
+}
+
+.bn{
+  color:#2ecc71;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #444;
+  margin:15px 0;
+}
 
 footer{
-  background:rgba(0,0,0,0.8);
+  background:#000;
   text-align:center;
   padding:10px;
-  color:#fff;
+  font-size:14px;
 }
 </style>
 </head>
@@ -62,95 +83,61 @@ footer{
 <body>
 
 <header>
-<h2>The Islamic Voice 24</h2>
-<p>Complete Qur’an with Tafsir</p>
+  <h1>The Islamic Voice 24</h1>
+  <p>Holy Quran | Arabic • English • Bengali</p>
 </header>
 
-<section>
-<h3>📖 Al-Qur’an</h3>
+<div class="container">
 
-<select id="surahList" onchange="loadSurah()">
-  <option value="">সূরা নির্বাচন করুন</option>
-</select>
+<!-- SURAH FATIHA -->
+<div class="surah">
+  <h2>Surah Al-Fatiha (الفاتحة)</h2>
+  <div class="info">
+    অবতীর্ণ: মক্কা (Makki) | আয়াত: ৭
+  </div>
 
-<div id="ayahs">লোড হচ্ছে...</div>
-</section>
+  <div class="bismillah">
+    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+  </div>
+
+  <p class="ar">١. الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</p>
+  <p class="en">1. All praise is for Allah—Lord of all worlds.</p>
+  <p class="bn">১. সমস্ত প্রশংসা আল্লাহর জন্য, যিনি সকল জগতের প্রতিপালক।</p>
+
+  <hr>
+
+  <p class="ar">٢. الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <p class="en">2. The Most Compassionate, Most Merciful.</p>
+  <p class="bn">২. তিনি পরম করুণাময়, অসীম দয়ালু।</p>
+</div>
+
+<!-- SURAH IKHLAS -->
+<div class="surah">
+  <h2>Surah Al-Ikhlas (الإخلاص)</h2>
+  <div class="info">
+    অবতীর্ণ: মক্কা (Makki) | আয়াত: ৪
+  </div>
+
+  <div class="bismillah">
+    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+  </div>
+
+  <p class="ar">١. قُلْ هُوَ اللَّهُ أَحَدٌ</p>
+  <p class="en">1. Say, ˹O Prophet,˺ “He is Allah—One ˹and Indivisible˺.</p>
+  <p class="bn">১. বলুন, তিনি আল্লাহ—এক ও অদ্বিতীয়।</p>
+
+  <hr>
+
+  <p class="ar">٢. اللَّهُ الصَّمَدُ</p>
+  <p class="en">2. Allah—the Sustainer needed by all.</p>
+  <p class="bn">২. আল্লাহ অমুখাপেক্ষী।</p>
+</div>
+
+</div>
 
 <footer>
-<p>© 2025 The Islamic Voice 24</p>
+  © 2025 The Islamic Voice 24 | Quran Main Page
 </footer>
-
-<script>
-// -------- Number Converters --------
-function toArabicNum(n){
-  const arNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-  return n.toString().split('').map(d=>arNums[d]).join('');
-}
-
-function toBanglaNum(n){
-  const bnNums = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-  return n.toString().split('').map(d=>bnNums[d]).join('');
-}
-
-// -------- LOAD SURAH LIST --------
-fetch("https://api.alquran.cloud/v1/surah")
-.then(r=>r.json())
-.then(d=>{
-  let s=document.getElementById("surahList");
-  d.data.forEach(x=>{
-    let o=document.createElement("option");
-    o.value=x.number;
-    o.text=x.number+". "+x.englishName+" ("+x.name+")";
-    s.appendChild(o);
-  });
-  s.value = 1; // Al-Fatiha
-  loadSurah();
-});
-
-// -------- LOAD SURAH + TAFSIR --------
-function loadSurah(){
-  let n=document.getElementById("surahList").value;
-  if(!n) return;
-
-  document.getElementById("ayahs").innerHTML="লোড হচ্ছে...";
-
-  fetch(
-    "https://api.alquran.cloud/v1/surah/"+n+
-    "/editions/quran-uthmani,en.asad,bn.bengali,en.jalalayn"
-  )
-  .then(r=>r.json())
-  .then(d=>{
-    let ar=d.data[0].ayahs;
-    let en=d.data[1].ayahs;
-    let bn=d.data[2].ayahs;
-    let taf=d.data[3].ayahs;
-
-    let h="";
-    for(let i=0;i<ar.length;i++){
-      let ayahNo = i+1;
-      h+=`
-      <p class="ar">
-        ${ar[i].text} ﴿${toArabicNum(ayahNo)}﴾
-      </p>
-
-      <p class="en">
-        (${ayahNo}) ${en[i].text}
-      </p>
-
-      <p class="bn">
-        (${toBanglaNum(ayahNo)}) ${bn[i].text}
-      </p>
-
-      <div class="tafsir">
-        <b>Tafsir (Jalalayn):</b><br>
-        ${taf[i].text}
-      </div>
-      <hr>`;
-    }
-    document.getElementById("ayahs").innerHTML=h;
-  });
-}
-</script>
 
 </body>
 </html>
